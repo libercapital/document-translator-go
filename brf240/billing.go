@@ -88,6 +88,24 @@ type BillingSegmentA struct {
 	Occurrence            string          `translator:"part:230..239"`                              //Status da Partida/Código de ocorrência  231..240   X(010)
 }
 
+type BillingSegmentY52 struct {
+	BankCode              string `translator:"part:0..2"`                   //Código do Banco                         001..003   9(003)
+	BatchNumber           int    `translator:"part:3..6"`                   //Lote de Serviço                         004..007   9(004)
+	RegistryKind          int    `translator:"part:7..7;kind:3"`            //Tipo de Registro                        008..008   9(001)
+	BatchSequentialNumber int    `translator:"part:8..12"`                  //Número Seqüencial do Registro no Lote   009..013   9(005)
+	SegmentKind           string `translator:"part:13..13;segment:Y"`       //Código Segmento do Registro Detalhe     014..014   X(001)
+	ActionInstructionKind int    `translator:"part:15..16"`                 //Código da Instrução para Movimento      016..017   9(002)
+	OptionalRegistryId    string `translator:"part:17..18"`                 //Identificação Registro Opcional         018..019   9(002)
+	FiscalDocumentNumber1 string `translator:"part:19..33;clearZeroLeft"`   //Número da Nota Fiscal 1                 020..034   X(015)
+	FiscalDocumentValue1  string `translator:"part:34..48;clearZeroLeft"`   //Valor da Nota Fiscal 1                  035..049   9(015)
+	FiscalDocumentDate1   string `translator:"part:49..56"`                 //Data Emissão da Nota Fiscal 1           050..057   9(008)
+	FiscalDocumentKey1    string `translator:"part:57..100"`                //Chave de Acesso DANFE NF 1              058..101   9(044)
+	FiscalDocumentNumber2 string `translator:"part:101..115;clearZeroLeft"` //Número da Nota Fiscal 2                 102..116   X(015)
+	FiscalDocumentValue2  string `translator:"part:116..130;clearZeroLeft"` //Valor da Nota Fiscal 2                  117..131   9(015)
+	FiscalDocumentDate2   string `translator:"part:131..139"`               //Data Emissão da Nota Fiscal 2           132..140   9(009)
+	FiscalDocumentKey2    string `translator:"part:140..183"`               //Chave de Acesso DANFE NF 2              141..184   9(044)
+}
+
 type BillingBatchTrailer struct {
 	BankCode                string          `translator:"part:0..2"`               //Código do Banco                      001..003   9(003)
 	BatchNumber             int             `translator:"part:3..6"`               //Lote de Serviço                      004..007   9(004

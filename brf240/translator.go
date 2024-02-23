@@ -5,10 +5,11 @@ import (
 )
 
 const (
-	kindPosition        = 7
-	segmentPosition     = 13
-	instructionPosition = 15
-	instructionLength   = 2
+	kindPosition             = 7
+	segmentPosition          = 13
+	instructionPosition      = 15
+	optionalRegistryPosition = 17
+	instructionLength        = 2
 )
 
 var objectKind = map[string]interface{}{
@@ -32,6 +33,12 @@ var parseObjectFunc = func(line string) interface{} {
 
 	if segment == "A" && instruction == "12" {
 		return new(BillingSegmentAReceipt)
+	}
+
+	var optionalRegistry = line[optionalRegistryPosition : optionalRegistryPosition+instructionLength]
+
+	if segment == "Y" && optionalRegistry == "52" {
+		return new(BillingSegmentY52)
 	}
 
 	return new(BillingSegmentA)
