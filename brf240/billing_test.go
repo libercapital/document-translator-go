@@ -155,6 +155,32 @@ func TestBillingSegmentAReceiptParse(t *testing.T) {
 	assert.Equal(t, expected_segment_a, parsed)
 }
 
+func TestBillingBillingSegmentY52Parse(t *testing.T) {
+	file_segment_y52 := "2370001300001Y 00520000000000120510000000004431823009202341230900766315001035570200000120511001205197                                                                                                                                          "
+
+	expected_segment_y52 := brf240.BillingSegmentY52{
+		BankCode:              "237",
+		BatchNumber:           1,
+		RegistryKind:          3,
+		BatchSequentialNumber: 1,
+		SegmentKind:           "Y",
+		ActionInstructionKind: 0,
+		OptionalRegistryId:    "52",
+		FiscalDocumentNumber1: "12051",
+		FiscalDocumentValue1:  "443182",
+		FiscalDocumentDate1:   "30092023",
+		FiscalDocumentKey1:    "41230900766315001035570200000120511001205197",
+		FiscalDocumentNumber2: "",
+		FiscalDocumentValue2:  "",
+		FiscalDocumentDate2:   "",
+		FiscalDocumentKey2:    "",
+	}
+	parsed, err := brf240.Parse(file_segment_y52)
+
+	assert.NoError(t, err)
+	assert.Equal(t, expected_segment_y52, parsed)
+}
+
 func TestBillingBatchTrailerParse(t *testing.T) {
 	file_trailer := "35300015         035193000000040420170731000000000000000000                                                                                                                                                                                     "
 	expected_value_amount, _ := decimal.NewFromString("404201707.31")
