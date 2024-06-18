@@ -8,7 +8,7 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/libercapital/document-translator-go"
+	documenttranslator "github.com/libercapital/document-translator-go"
 	"github.com/libercapital/document-translator-go/internal/wraperrors"
 	"github.com/shopspring/decimal"
 	"golang.org/x/text/runes"
@@ -190,10 +190,18 @@ func setValues(line string, v reflect.Value, param ParseParams) error {
 
 		v.SetString(value)
 	case time.Time:
-		timeParsed, err := time.Parse(param.TimeParse, value)
+		var timeParsed time.Time
+		var err error
 
-		if err != nil {
-			return err
+		if dateValueIsEmpty(value) {
+			timeParsed = time.Time{}
+		} else {
+			timeParsed, err = time.Parse(param.TimeParse, value)
+
+			if err != nil {
+				return err
+			}
+
 		}
 
 		v.Set(reflect.ValueOf(timeParsed.UTC()))
@@ -211,6 +219,10 @@ func setValues(line string, v reflect.Value, param ParseParams) error {
 	}
 
 	return nil
+}
+
+func dateValueIsEmpty(value string) bool {
+	return strings.Trim(value, "0") == ""
 }
 
 // convertStringToIntSlice converts a slice of string values to a slice of integers.
@@ -338,6 +350,11 @@ func extractTags(structTagged reflect.Type) (parseOpt ParseOpt, err error) {
 //	    // Handle the error
 //	}
 func validateKindAndSegment(parseOpt ParseOpt, valueOf reflect.Value) (err error) {
+	// Some documents don't have a kind.
+	if parseOpt.Kind.Value == "" {
+		return nil
+	}
+
 	var segmentField reflect.Value
 	kindField := valueOf.Field(*parseOpt.Kind.FieldIndex)
 

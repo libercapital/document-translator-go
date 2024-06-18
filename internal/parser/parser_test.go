@@ -1,13 +1,14 @@
 package parser
 
 import (
-	"github.com/libercapital/document-translator-go/internal/utils"
 	"reflect"
 	"strconv"
 	"testing"
 	"time"
 
-	"github.com/libercapital/document-translator-go"
+	documenttranslator "github.com/libercapital/document-translator-go"
+	"github.com/libercapital/document-translator-go/internal/utils"
+
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 )
