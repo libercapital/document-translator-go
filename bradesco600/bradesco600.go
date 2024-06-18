@@ -50,6 +50,4 @@ type CreditAssessment struct {
 	SystemSource                uint            `translator:"part:592..598"`                      // Sistema de origem                     593..599 9(007)
 	AquisitionDate              time.Time       `translator:"part:599..608;timeParse:02.01.2006"` // Data de aquisição                     600..609 X(010)
 	AquisitionCode              uint            `translator:"part:609..611"`                      // Código de aquisição                   610..612 9(003)
-	// CreditResponse              string          `translator:"part:612..711"`                      // Retorno informado pelo crédito        613..712 X(100)
-
 }
