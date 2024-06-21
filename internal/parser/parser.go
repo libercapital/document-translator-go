@@ -222,7 +222,8 @@ func setValues(line string, v reflect.Value, param ParseParams) error {
 }
 
 func dateValueIsEmpty(value string) bool {
-	return strings.Trim(value, "0") == ""
+	// value can be "00000000" or "0000.00.00"
+	return strings.Trim(value, "0.") == ""
 }
 
 // convertStringToIntSlice converts a slice of string values to a slice of integers.
