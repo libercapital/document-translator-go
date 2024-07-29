@@ -4,14 +4,16 @@ import (
 	"time"
 
 	"github.com/shopspring/decimal"
+
+	"github.com/libercapital/document-translator-go/internal/writer"
 )
 
 type CreditAssessment struct {
 	BaseDate                    time.Time       `translator:"part:0..7;timeParse:02012006"`       // Data base                             001..008 9(008)
-	ContractNumber              uint            `translator:"part:8..24"`                         // Número do contrato                    009..025 9(017)
+	ContractNumber              string          `translator:"part:8..24"`                         // Número do contrato                    009..025 9(017)
 	CustomerName                string          `translator:"part:25..64"`                        // Nome do cliente                       026..065 X(040)
 	PersonType                  string          `translator:"part:65..65"`                        // Tipo de pessoa                        066..066 X(001)
-	DocumentNumber              uint            `translator:"part:66..80"`                        // CNPJ / CPF                            067..081 9(015)
+	DocumentNumber              string          `translator:"part:66..80"`                        // CNPJ / CPF                            067..081 9(015)
 	AssessmentType              string          `translator:"part:81..100"`                       // Modalidade                            082..101 X(020)
 	ContractStartDate           time.Time       `translator:"part:101..108;timeParse:02012006"`   // Data Início Contrato                  102..109 9(008)
 	ContractEndDate             time.Time       `translator:"part:109..116;timeParse:02012006"`   // Data Fim Contrato                     110..117 9(008)
@@ -50,4 +52,8 @@ type CreditAssessment struct {
 	SystemSource                uint            `translator:"part:592..598"`                      // Sistema de origem                     593..599 9(007)
 	AquisitionDate              time.Time       `translator:"part:599..608;timeParse:02.01.2006"` // Data de aquisição                     600..609 X(010)
 	AquisitionCode              uint            `translator:"part:609..611"`                      // Código de aquisição                   610..612 9(003)
+}
+
+func (c CreditAssessment) String() (string, error) {
+	return writer.Marshal(c, 612)
 }

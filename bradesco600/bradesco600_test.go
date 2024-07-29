@@ -15,7 +15,7 @@ func TestCreditAssessment(t *testing.T) {
 	}
 
 	// TODO: test is incomplete. Fields don't match perfectly.
-	assert.Equal(t, "15012024", parsed.(CreditAssessment).BaseDate.Format("02012006"))
-	assert.Equal(t, "ELETROZEMA S/A", parsed.(CreditAssessment).CustomerName)
-	assert.Equal(t, "083-REAL", parsed.(CreditAssessment).Indexer)
+	assert.Equal(t, "15012024", parsed.BaseDate.Format("02012006"))
+	assert.Equal(t, "ELETROZEMA S/A", parsed.CustomerName)
+	assert.Equal(t, "083-REAL", parsed.Indexer)
 }
