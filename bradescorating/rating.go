@@ -7,9 +7,9 @@ import (
 
 type Rating struct {
 	DocumentNumber string          `translator:"part:0..14"`
-	Amount         decimal.Decimal `translator:"part:15..30;precision:2"`
+	Amount         decimal.Decimal `translator:"part:15..29;precision:2"`
 }
 
 func (c Rating) String() (string, error) {
-	return writer.Marshal(c, 31)
+	return writer.Marshal(c, 30)
 }
