@@ -52,8 +52,9 @@ type CreditAssessment struct {
 	SystemSource                uint            `translator:"part:592..598"`                      // Sistema de origem                     593..599 9(007)
 	AquisitionDate              time.Time       `translator:"part:599..608;timeParse:02.01.2006"` // Data de aquisição                     600..609 X(010)
 	AquisitionCode              uint            `translator:"part:609..611"`                      // Código de aquisição                   610..612 9(003)
+	Return                      string          `translator:"part:612..712"`                      // Retorno                               613..713 X(100)
 }
 
 func (c CreditAssessment) String() (string, error) {
-	return writer.Marshal(c, 612)
+	return writer.Marshal(c, 713)
 }
