@@ -1,6 +1,7 @@
 package writer
 
 import (
+	"strconv"
 	"testing"
 	"time"
 
@@ -138,6 +139,33 @@ func Test_structToString(t *testing.T) {
 			wantErr: nil,
 			want:    "        ", // Esperado formato da data zero
 		},
+		{
+			name: "successful struct to string with value with precision",
+			value: struct {
+				Rate decimal.Decimal `translator:"part:0..4;precision:4"`
+			}{
+				Rate: func() decimal.Decimal {
+					dec, _ := decimal.NewFromString("0.00644927")
+					return dec
+				}(),
+			},
+			length:  5,
+			wantErr: nil,
+			want:    "00064",
+		},
+		{
+			name: "error when struct to string with wrong precision",
+			value: struct {
+				Rate decimal.Decimal `translator:"part:0..4;precision:TEST"`
+			}{
+				Rate: func() decimal.Decimal {
+					dec, _ := decimal.NewFromString("0.0064")
+					return dec
+				}(),
+			},
+			length:  5,
+			wantErr: &strconv.NumError{},
+		},
 	}
 
 	for _, tt := range tests {
@@ -148,7 +176,8 @@ func Test_structToString(t *testing.T) {
 				assert.Nil(t, err)
 			}
 			if err != nil {
-				assert.Equal(t, tt.wantErr, err)
+				assert.Error(t, err)
+				assert.IsType(t, tt.wantErr, err)
 			}
 		})
 	}
