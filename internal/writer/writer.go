@@ -28,6 +28,7 @@ type serializerParams struct {
 	TimeParse   string
 	Value       string
 	Align       string
+	Precision   int // Precision specifies the decimal precision for the field.
 }
 
 func (s *serializerOpt) String() string {
@@ -59,6 +60,7 @@ func extractTags(structTagged reflect.Type) (serializerOpt serializerOpt, err er
 
 		for _, rule := range translatorTags {
 			parts := strings.Split(rule, ";")
+			defaultPrecision := true
 
 			for _, part := range parts {
 				keyValuePair := strings.Split(part, ":")
@@ -78,7 +80,18 @@ func extractTags(structTagged reflect.Type) (serializerOpt serializerOpt, err er
 					serializerOpt.Params[i].TimeParse = value
 				case "align":
 					serializerOpt.Params[i].Align = value
+				case "precision":
+					precision, err := strconv.Atoi(keyValuePair[1])
+					if err != nil {
+						return serializerOpt, err
+					}
+					serializerOpt.Params[i].Precision = precision
+					defaultPrecision = false
 				}
+			}
+
+			if defaultPrecision {
+				serializerOpt.Params[i].Precision = 2
 			}
 		}
 	}
@@ -124,7 +137,7 @@ func getValue(param *serializerParams, structValue reflect.Value) string {
 	case decimal.Decimal:
 		param.FillType = FillNumber
 		decimal := structValue.Interface().(decimal.Decimal)
-		return strings.ReplaceAll(decimal.StringFixed(2), ".", "")
+		return strings.ReplaceAll(decimal.StringFixed(int32(param.Precision)), ".", "")
 	}
 
 	return ""

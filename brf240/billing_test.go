@@ -215,3 +215,43 @@ func TestBillingFileTrailerParse(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, expected_file_trailer, parsed)
 }
+
+func TestBillingReturnSegmentAWrite(t *testing.T) {
+	invoiceValue, _ := decimal.NewFromString("22.5")
+	invoiceDiscountValue, _ := decimal.NewFromString("2.5")
+	invoiceFinancingValue, _ := decimal.NewFromString("20.0")
+	invoiceDiscountRate, _ := decimal.NewFromString("0.00644927")
+	expected_segment_a := "BRF0001300001A000G10 TRANSPORTES LTDA                21809202407569161000492   003410000032883        732807000085997-001-001     18092024180920240000000000000000022500000000000025000000000002000000064250051023754842019001        F5        "
+
+	segment_a := brf240.BillingReturnSegmentA{
+		BankCode:              "BRF",
+		BatchNumber:           1,
+		RegistryKind:          3,
+		BatchSequentialNumber: 1,
+		SegmentKind:           "A",
+		ActionKind:            1,
+		ActionInstructionKind: 12,
+		VendorName:            "G10 TRANSPORTES LTDA",
+		DocumentKind:          2,
+		FinancingDate:         time.Date(2024, time.September, 18, 0, 0, 0, 0, time.UTC).Round(0),
+		Document:              "07569161000492",
+		VendorBankCode:        341,
+		VendorAgency:          3288,
+		VendorAgencyCd:        "3",
+		VendorAccount:         "73280",
+		VendorAccountCd:       "7",
+		PaymentNumber:         "000085997-001-001",
+		IssueDate:             time.Date(2024, time.September, 18, 0, 0, 0, 0, time.UTC).Round(0),
+		DueDate:               time.Date(2024, time.September, 18, 0, 0, 0, 0, time.UTC).Round(0),
+		PaymentValue:          invoiceValue,
+		DiscountValue:         invoiceDiscountValue,
+		FinancingValue:        invoiceFinancingValue,
+		DiscountRate:          invoiceDiscountRate,
+		ReferenceNumber:       "250051023754842019001",
+		Occurrence:            "F5",
+	}
+	segment_a_written, err := segment_a.New().String()
+
+	assert.NoError(t, err)
+	assert.Equal(t, expected_segment_a, segment_a_written)
+}

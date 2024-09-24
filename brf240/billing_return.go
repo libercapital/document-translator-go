@@ -108,10 +108,10 @@ type BillingReturnSegmentA struct {
 	PaymentNumber         string          `translator:"part:108..129"`                    //Número da Nota Fiscal/Fatura            109..130   X(022)
 	IssueDate             time.Time       `translator:"part:130..137;timeParse:02012006"` //Data de emissão do documento            131..138   X(008)
 	DueDate               time.Time       `translator:"part:138..145;timeParse:02012006"` //Data do vencimento                      139..146   X(008)
-	PaymentValue          decimal.Decimal `translator:"part:146..166"`                    //Valor do título                         147..167   9(021)(2)
-	DiscountValue         decimal.Decimal `translator:"part:167..180"`                    //Valor do desconto                       168..181   9(012)(2)
-	FinancingValue        decimal.Decimal `translator:"part:181..194"`                    //Valor liquido                           182..195   9(012)(2)
-	DiscountRate          decimal.Decimal `translator:"part:195..200"`                    //Taxa de adiantamento                    196..201   9(2)(4)
+	PaymentValue          decimal.Decimal `translator:"part:146..166;precision:2"`        //Valor do título                         147..167   9(021)(2)
+	DiscountValue         decimal.Decimal `translator:"part:167..180;precision:2"`        //Valor do desconto                       168..181   9(012)(2)
+	FinancingValue        decimal.Decimal `translator:"part:181..194;precision:2"`        //Valor liquido                           182..195   9(012)(2)
+	DiscountRate          decimal.Decimal `translator:"part:195..200;precision:4"`        //Taxa de adiantamento                    196..201   9(2)(4)
 	ReferenceNumber       string          `translator:"part:201..229"`                    //Numero de referência                    202..230   X(029)
 	Occurrence            string          `translator:"part:230..239"`                    //Status da Partida/Código de ocorrência  231..240   X(010)
 }
@@ -131,14 +131,14 @@ func (b BillingReturnSegmentA) String() (string, error) {
 }
 
 type BillingReturnBatchTrailer struct {
-	BankCode                string          `translator:"part:0..2"`     //Código do Banco                      001..003   9(003)
-	BatchNumber             int             `translator:"part:3..6"`     //Lote de Serviço                      004..007   9(004
-	RegistryKind            int             `translator:"part:7..7"`     //Tipo de Registro                     008..008   9(001)
-	QuantityRegistries      int             `translator:"part:17..22"`   //Quantidade de Registros do Lote      018..023   9(006)
-	ValueAmount             decimal.Decimal `translator:"part:23..40"`   //Somatória dos Valores                024..041   9(016)V2
-	CurrencyQuantity        decimal.Decimal `translator:"part:41..58"`   //Somatória Quantidade Moeda           042..059   9(013)V5
-	DebitNotificationNumber int             `translator:"part:59..64"`   //Número Aviso de Débito               060..065   9(006)
-	Occurrence              string          `translator:"part:230..239"` //Ocorrências para o Retorno           231..240   X(010)
+	BankCode                string          `translator:"part:0..2"`               //Código do Banco                      001..003   9(003)
+	BatchNumber             int             `translator:"part:3..6"`               //Lote de Serviço                      004..007   9(004
+	RegistryKind            int             `translator:"part:7..7"`               //Tipo de Registro                     008..008   9(001)
+	QuantityRegistries      int             `translator:"part:17..22"`             //Quantidade de Registros do Lote      018..023   9(006)
+	ValueAmount             decimal.Decimal `translator:"part:23..40;precision:2"` //Somatória dos Valores                024..041   9(016)V2
+	CurrencyQuantity        decimal.Decimal `translator:"part:41..58;precision:2"` //Somatória Quantidade Moeda           042..059   9(013)V5
+	DebitNotificationNumber int             `translator:"part:59..64"`             //Número Aviso de Débito               060..065   9(006)
+	Occurrence              string          `translator:"part:230..239"`           //Ocorrências para o Retorno           231..240   X(010)
 }
 
 // TODO criar tag default nas estruturas
