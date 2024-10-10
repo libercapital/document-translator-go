@@ -244,3 +244,95 @@ func TestParseTrailer(t *testing.T) {
 	assert.Equal(t, 47, parsed.QuantidadeRegistros)
 	assert.Equal(t, "", parsed.Reservado)
 }
+
+func TestKindT0(t *testing.T) {
+	cnabLine := "01609202407132916092024CEADM1001013903        10440482000154GETNET S.A.         000002516GSSANT. V.10.1 400 BYTES                                                                                                                                                                                                                                                                                                "
+
+	kind, err := Kind(cnabLine)
+	if err != nil {
+		assert.Fail(t, err.Error())
+		return
+	}
+
+	assert.Equal(t, TipoRegistroHeader, kind)
+}
+
+func TestKindT1(t *testing.T) {
+	cnabLine := "11013903        SRMAN051190405030920241609202403300368900000000000000000001000000000000000014890000000014890000000000000000000000000000000000000000000014890000000000000LQ01011013903        00000000000000000000000000000000000000000000000005000511904050001000000000000000000000000000986 -CC000000000001300287672024040902510656452007001                                                                   "
+
+	kind, err := Kind(cnabLine)
+	if err != nil {
+		assert.Fail(t, err.Error())
+		return
+	}
+
+	assert.Equal(t, TipoRegistroResumoTransacional, kind)
+}
+
+func TestKindT2(t *testing.T) {
+	cnabLine := "21013903        00052459700000200009816082024104422650921******1796   0000024142390000000000000000000000000601000000402374160920240000385282TEFC1013903        T4502939986N+   000000008775                                                                                                                                                                                                                     "
+
+	kind, err := Kind(cnabLine)
+	if err != nil {
+		assert.Fail(t, err.Error())
+		return
+	}
+
+	assert.Equal(t, TipoRegistroAnaliticoTransacional, kind)
+}
+
+func TestKindT3(t *testing.T) {
+	cnabLine := "31013903        0511904050309202416092024240903003689439      -00000001489002000000000                  00000000000000000000000000000LQ                98600000000000003Aluguel-                                                                                                                                                                                                                                "
+
+	kind, err := Kind(cnabLine)
+	if err != nil {
+		assert.Fail(t, err.Error())
+		return
+	}
+
+	assert.Equal(t, TipoRegistroAjusteFinanceiro, kind)
+}
+
+func TestKindT5(t *testing.T) {
+	cnabLine := "51013903        120920241609202400000000000000000000PG00000000000000000036381900000000000000000036381900000000000CC033003689000000000000130028767   LIF 000000000000000000110656452007001  000000000                    000000001013903                         EC2024160900810656452007001                                                                                                                      "
+
+	kind, err := Kind(cnabLine)
+	if err != nil {
+		assert.Fail(t, err.Error())
+		return
+	}
+
+	assert.Equal(t, TipoRegistroResumoFinanceiro, kind)
+}
+
+func TestKindT6(t *testing.T) {
+	cnabLine := "61013903        1609202400000000000000000000LQ000000000000000000SR05082024000000000000000000000000000000000000000000014890  00000000000000000000000000000DIF 000000000000000000 00000000000000  000000000                    000000001013903                         2024050802510656452007001                                                                                                                  "
+
+	kind, err := Kind(cnabLine)
+	if err != nil {
+		assert.Fail(t, err.Error())
+		return
+	}
+
+	assert.Equal(t, TipoRegistroDetalheFinanceiro, kind)
+}
+
+func TestKindT9(t *testing.T) {
+	cnabLine := "9000000047                                                                                                                                                                                                                                                                                                                                                                                                      "
+
+	kind, err := Kind(cnabLine)
+	if err != nil {
+		assert.Fail(t, err.Error())
+		return
+	}
+
+	assert.Equal(t, TipoRegistroTrailer, kind)
+}
+
+func TestKindInvalid(t *testing.T) {
+	cnabLine := "X1013903        1609202400000000000000000000LQ000000000000000000SR05082024000000000000000000000000000000000000000000014890  00000000000000000000000000000DIF 000000000000000000 00000000000000  000000000                    000000001013903                         2024050802510656452007001                                                                                                                  "
+
+	kind, err := Kind(cnabLine)
+	assert.EqualError(t, err, "invalid register type")
+	assert.Equal(t, RegisterType(""), kind)
+}
