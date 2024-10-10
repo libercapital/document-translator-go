@@ -1,4 +1,4 @@
-package getnet_extrato
+package getnetextrato
 
 import (
 	"errors"
