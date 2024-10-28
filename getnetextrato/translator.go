@@ -21,6 +21,10 @@ const (
 )
 
 func Kind(line string) (RegisterType, error) {
+	if len(line) == 0 {
+		return RegisterType(""), errors.New("line with zero length")
+	}
+
 	kind := line[kindPosition : kindPosition+1]
 
 	switch kind {
