@@ -226,8 +226,8 @@ func Test_extractTags(t *testing.T) {
 		Field1 int    `translator:"part:0..5"`
 		Field2 string `translator:"timeParse:02012006150405"`
 		Field5 int    `translator:"precision:4"`
-		Field6 string `translator:"prefixFrom:PS,PA,SP,SA,EN,DM"`
-		Field7 int    `translator:"splitAfter:PS,PA,SP,SA,EN,DM"`
+		Field6 string `translator:"prefixFrom:PS,PA,SP,SA,EN,DM,PE"`
+		Field7 int    `translator:"splitAfter:PS,PA,SP,SA,EN,DM,PE"`
 		Field3 int    `translator:"kind:1"`
 		Field4 string `translator:"segment:segment_value"`
 	}
@@ -379,8 +379,8 @@ func Test_parseLine(t *testing.T) {
 		Field1 int             `translator:"part:0..2;"`
 		Field2 time.Time       `translator:"part:3..16;timeParse:02012006150405"`
 		Field3 decimal.Decimal `translator:"part:17..25;precision:2"`
-		Field4 string          `translator:"part:26..35;prefixFrom:PS,PA,SP,SA,EN,DM"`
-		Field5 string          `translator:"part:26..35;splitAfter:PS,PA,SP,SA,EN,DM"`
+		Field4 string          `translator:"part:26..35;prefixFrom:PS,PA,SP,SA,EN,DM,PE"`
+		Field5 string          `translator:"part:26..35;splitAfter:PS,PA,SP,SA,EN,DM,PE"`
 		Field6 int             `translator:"part:36..36;kind:1"`
 		Field7 string          `translator:"part:37..39;segment:abc"`
 	}
