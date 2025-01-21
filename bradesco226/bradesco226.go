@@ -9,14 +9,14 @@ import (
 )
 
 type Header struct {
-	RegisterType           string          `translator:"part:0..0;kind:1"`               // Tipo de Registro Fixo 1                            001..001 9(001)
-	ContractNumber         string          `translator:"part:1..9"`                      // Numero do contrato original                        002..010 9(009)
-	MovementDate           time.Time       `translator:"part:10..17;timeParse:02012006"` // Data do movimento                                  011..018 9(008)
-	ContractQuantity       decimal.Decimal `translator:"part:18..26"`                    // Quantidade de contratos                            019..027 9(009)
-	BorrowerQuantity       decimal.Decimal `translator:"part:27..35"`                    // Quantidade de devedores                            028..036 9(009)
-	InstallmentQuantity    decimal.Decimal `translator:"part:36..44"`                    // Quantidade de parcelas                             037..045 9(009)
-	SourceCompanyCode      string          `translator:"part:45..51"`                    // Codigo da empresa origem                           046..052 9(007)
-	RetroactiveAccountCode string          `translator:"part:52..52"`                    // Codigo da conta retroativa                         053..053 9(001)
+	RegisterType           string    `translator:"part:0..0;kind:1"`               // Tipo de Registro Fixo 1                            001..001 9(001)
+	ContractNumber         string    `translator:"part:1..9"`                      // Numero do contrato original                        002..010 9(009)
+	MovementDate           time.Time `translator:"part:10..17;timeParse:02012006"` // Data do movimento                                  011..018 9(008)
+	ContractQuantity       string    `translator:"part:18..26"`                    // Quantidade de contratos                            019..027 9(009)
+	BorrowerQuantity       string    `translator:"part:27..35"`                    // Quantidade de devedores                            028..036 9(009)
+	InstallmentQuantity    string    `translator:"part:36..44"`                    // Quantidade de parcelas                             037..045 9(009)
+	SourceCompanyCode      string    `translator:"part:45..51"`                    // Codigo da empresa origem                           046..052 9(007)
+	RetroactiveAccountCode string    `translator:"part:52..52"`                    // Codigo da conta retroativa                         053..053 9(001)
 }
 
 func (h Header) String() (string, error) {
