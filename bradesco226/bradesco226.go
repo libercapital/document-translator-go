@@ -61,21 +61,21 @@ func (c Contract) String() (string, error) {
 }
 
 type Borrower struct {
-	RegisterType           string `translator:"part:0..0;kind:3"`         // Tipo de Registro - Fixo 3                  001..001 9(001)
-	ContractNumber         string `translator:"part:1..9"`                // Numero do contrato                         002..010 9(009)
-	PersonType             string `translator:"part:10..10"`              // Tipo de Pessoa - 1 p/ PF 2 p/PJ            011..011 9(001)
-	Name                   string `translator:"part:11..70;align:left"`   // Nome do Cliente                            012..071 X(060)
-	Address                string `translator:"part:71..110;align:left"`  // Logradouro                                 072..111 X(040)
-	AddressNumber          string `translator:"part:111..115;align:left"` // Numero do Logradouro                       112..116 X(005)
-	AddressComplement      string `translator:"part:116..125;align:left"` // Complemento do Logradouro                  117..126 X(010)
-	Neighborhood           string `translator:"part:126..145;align:left"` // Bairro                                     127..146 X(020)
-	ZipCode                string `translator:"part:146..153"`            // CEP                                        147..154 9(008)
-	CompanySize            string `translator:"part:154..156"`            // Porte da Empresa                           155..157 9(003)
-	LegalStatus            string `translator:"part:157..159"`            // Natureza Jurídica                          158..160 9(003)
-	ActivityCode           string `translator:"part:160..164"`            // Código da Atividade                        161..165 9(005)
-	Phone                  string `translator:"part:165..176"`            // Telefone                                   166..177 9(012)
-	PhoneExtension         string `translator:"part:177..181"`            // Ramal do Telefone                          178..182 9(005)
-	OriginalContractNumber string `translator:"part:182..221"`            // Numero do contrato original na C3          183..222 9(040)
+	RegisterType           string `translator:"part:0..0;kind:3"` // Tipo de Registro - Fixo 3                  001..001 9(001)
+	ContractNumber         string `translator:"part:1..9"`        // Numero do contrato                         002..010 9(009)
+	PersonType             string `translator:"part:10..10"`      // Tipo de Pessoa - 1 p/ PF 2 p/PJ            011..011 9(001)
+	Name                   string `translator:"part:11..70"`      // Nome do Cliente                            012..071 X(060)
+	Address                string `translator:"part:71..110"`     // Logradouro                                 072..111 X(040)
+	AddressNumber          string `translator:"part:111..115"`    // Numero do Logradouro                       112..116 X(005)
+	AddressComplement      string `translator:"part:116..125"`    // Complemento do Logradouro                  117..126 X(010)
+	Neighborhood           string `translator:"part:126..145"`    // Bairro                                     127..146 X(020)
+	ZipCode                string `translator:"part:146..153"`    // CEP                                        147..154 9(008)
+	CompanySize            string `translator:"part:154..156"`    // Porte da Empresa                           155..157 9(003)
+	LegalStatus            string `translator:"part:157..159"`    // Natureza Jurídica                          158..160 9(003)
+	ActivityCode           string `translator:"part:160..164"`    // Código da Atividade                        161..165 9(005)
+	Phone                  string `translator:"part:165..176"`    // Telefone                                   166..177 9(012)
+	PhoneExtension         string `translator:"part:177..181"`    // Ramal do Telefone                          178..182 9(005)
+	OriginalContractNumber string `translator:"part:182..221"`    // Numero do contrato original na C3          183..222 9(040)
 }
 
 func (b Borrower) String() (string, error) {
