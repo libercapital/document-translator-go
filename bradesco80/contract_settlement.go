@@ -9,10 +9,10 @@ import (
 
 type ContractSettlementHeader struct {
 	TipoRegistro  int       `translator:"part:0..0"`
-	DataMovimento time.Time `translator:"part:1..9;timeParse:02012006"`
-	Nome          string    `translator:"part:10..49"`
-	EmpresaOrigem int       `translator:"part:50..57"`
-	Filler        string    `translator:"part:58..79"`
+	DataMovimento time.Time `translator:"part:1..8;timeParse:02012006"`
+	Nome          string    `translator:"part:9..48"`
+	EmpresaOrigem int       `translator:"part:49..55"`
+	Filler        string    `translator:"part:56..79"`
 }
 
 func (c ContractSettlementHeader) String() (string, error) {
@@ -20,19 +20,19 @@ func (c ContractSettlementHeader) String() (string, error) {
 }
 
 type ContractSettlementRegister struct {
-	TipoRegistro                    int             `translator:"part:0..0"`
-	SistemaOrigem                   int             `translator:"part:1..4"`
-	CodigoConvenio                  int             `translator:"part:5..13"`
-	ContratoOrigem                  int             `translator:"part:14..22"`
-	TipoPagamento                   int             `translator:"part:23..23"`
-	DataVencimentoParcela           time.Time       `translator:"part:24..31;timeParse:02012006"`
-	Produto                         string          `translator:"part:32..34"`
-	Familia                         string          `translator:"part:35..35"`
-	Contrato                        string          `translator:"part:36..44"`
-	ValorPagameto                   decimal.Decimal `translator:"part:45..61;precision:2"`
-	NumeroParcela                   int             `translator:"part:62..64"`
-	ADebitarNaConta                 int             `translator:"part:65..65"`
-	Filler                          int             `translator:"part:66..78"`
+	TipoRegistro                    string          `translator:"part:0..0"`
+	SistemaOrigem                   string          `translator:"part:1..3"`
+	CodigoConvenio                  string          `translator:"part:4..12"`
+	ContratoOrigem                  string          `translator:"part:13..21"`
+	TipoPagamento                   string          `translator:"part:22..22"`
+	DataVencimentoParcela           time.Time       `translator:"part:23..30;timeParse:02012006"`
+	Produto                         string          `translator:"part:31..33"`
+	Familia                         string          `translator:"part:34..34"`
+	Contrato                        string          `translator:"part:35..43"`
+	ValorPagameto                   decimal.Decimal `translator:"part:44..60;precision:2"`
+	NumeroParcela                   string          `translator:"part:61..63"`
+	ADebitarNaConta                 string          `translator:"part:64..64"`
+	Filler                          string          `translator:"part:65..78"`
 	IdentificadorRecompraLiquidacao string          `translator:"part:79..79"`
 }
 
@@ -42,8 +42,8 @@ func (c ContractSettlementRegister) String() (string, error) {
 
 type ContractSettlementTrailer struct {
 	TipoRegistro        int    `translator:"part:0..0"`
-	QuantidadeRegistros int    `translator:"part:1..7"`
-	Filler              string `translator:"part:8..79"`
+	QuantidadeRegistros int    `translator:"part:1..6"`
+	Filler              string `translator:"part:7..79"`
 }
 
 func (c ContractSettlementTrailer) String() (string, error) {
