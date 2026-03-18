@@ -83,8 +83,8 @@ type BillingSegmentA struct {
 	DiscountValue         decimal.Decimal `translator:"part:167..180;precision:2"`                        //Valor do desconto                       168..181   9(012)(2)
 	FinancingValue        decimal.Decimal `translator:"part:181..194;precision:2"`                        //Valor liquido                           182..195   9(012)(2)
 	DiscountRate          decimal.Decimal `translator:"part:195..200;precision:4"`                        //Taxa de adiantamento                    196..201   9(2)(4)
-	ReferenceNumberPrefix string          `translator:"part:201..229;prefixFrom:PS,PA,SP,SA,EN,DM,PE,C1"` //Numero de referência                    202..230   X(029)
-	ReferenceNumber       string          `translator:"part:201..229;splitAfter:PS,PA,SP,SA,EN,DM,PE,C1"` //Numero de referência                    202..230   X(029)
+	ReferenceNumberPrefix string          `translator:"part:201..229;prefixFrom:PS,PA,SP,SA,EN,DM,PE,C1,MF"` //Numero de referência                    202..230   X(029)
+	ReferenceNumber       string          `translator:"part:201..229;splitAfter:PS,PA,SP,SA,EN,DM,PE,C1,MF"` //Numero de referência                    202..230   X(029)
 	Occurrence            string          `translator:"part:230..239"`                                    //Status da Partida/Código de ocorrência  231..240   X(010)
 }
 
